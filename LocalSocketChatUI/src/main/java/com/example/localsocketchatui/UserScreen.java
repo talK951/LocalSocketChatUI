@@ -10,6 +10,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
+
 public class UserScreen {
 
     @FXML
@@ -56,12 +58,14 @@ public class UserScreen {
     }
 
     @FXML
-    void OnSendMessageButton(ActionEvent event) {
+    void OnSendMessageButton(ActionEvent event) throws IOException {
+        UserSocketSingleton userSocket = UserSocketSingleton.getInstance();
         String message = inputTextField.getText();
-        Label userMsg = new Label(message);
+        String serverContent = userSocket.SendAndReciveContentToServer(message);
+        Label userMsg = new Label(serverContent);
+
         userMsg.setMaxWidth(Double.MAX_VALUE);
         userMsg.setAlignment(Pos.CENTER_RIGHT);
         chatContainer.getChildren().add(userMsg);
     }
-
 }
