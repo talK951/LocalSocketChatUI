@@ -59,10 +59,12 @@ public class UserScreen {
 
     @FXML
     void OnSendMessageButton(ActionEvent event) throws IOException {
-        UserSocketSingleton userSocket = UserSocketSingleton.getInstance();
+        //UserSocketSingleton userSocket = UserSocketSingleton.getInstance();
         String message = inputTextField.getText();
-        String serverContent = userSocket.SendAndReciveContentToServer(message);
-        Label userMsg = new Label(serverContent);
+        //String serverContent = userSocket.SendAndReciveContentToServer(message);
+        Label userMsg = new Label(message);
+
+        userMsg.setStyle("-fx-background-color:white; -fx-pref-width:30;");
 
         userMsg.setMaxWidth(Double.MAX_VALUE);
         userMsg.setAlignment(Pos.CENTER_RIGHT);
