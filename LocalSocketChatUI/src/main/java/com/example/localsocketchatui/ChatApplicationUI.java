@@ -11,10 +11,11 @@ import java.util.Objects;
 
 public class ChatApplicationUI extends Application {
 
-
+    public static Stage stage;
     @Override
     public void start(Stage stage) throws IOException {
 
+        ChatApplicationUI.stage = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(ChatApplicationUI.class.getResource("UserScreen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 500);
         stage.setTitle("ChatApplication");
@@ -23,6 +24,9 @@ public class ChatApplicationUI extends Application {
         UserSocketSingleton.getInstance().StartUpUser();
     }
 
+    public static Stage GetStage(){
+        return stage;
+    }
     public static void main(String[] args) {
         launch();
     }
