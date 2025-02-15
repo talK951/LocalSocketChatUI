@@ -38,14 +38,21 @@ public class HelperFunctions extends Thread{
 
                     Platform.runLater(() -> {
 
-                        if(finalLine.charAt(0) == 'u' ){
-                            list.getItems().add(finalLine.substring(1));
+                        if(finalLine.charAt(0) == 'u') {
+                            list.getItems().clear();
+
+                            String[] arrayTemp = finalLine.split("/");
+                            System.out.println(arrayTemp);
+
+                            for (int i = 1; i < arrayTemp.length; i++) {
+
+                                list.getItems().add(arrayTemp[i]);
+                            }
                         }
 
                         else if(finalLine.charAt(0) == 'r'){
                             list.getItems().remove(Integer.parseInt(finalLine.substring(1)));
                         }
-
                     });
 
                 }

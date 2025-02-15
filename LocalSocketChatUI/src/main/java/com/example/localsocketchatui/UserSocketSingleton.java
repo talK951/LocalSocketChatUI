@@ -12,7 +12,7 @@ import java.net.InetAddress;
 public class UserSocketSingleton {
 
 
-    private String hostName = "Ovramenko"; //DESKTOP-4S5C71
+    private String hostName = "DESKTOP-4S5C71S"; //
     private int portNumber = 8080;
     private String deskTopName = InetAddress.getLocalHost().getHostName();
     private Socket serverSocket = new Socket(hostName,portNumber);
