@@ -62,26 +62,47 @@ public class UserScreen implements Initializable {
     @FXML
     private Label selectionCheck;
 
+
     String currentChannel;
 
+    String deskTopName = InetAddress.getLocalHost().getHostName();
     @FXML
     public ListView<String> channelList;
 
+    PrintWriter out;
+
     Stage stage = GetStage();
 
+    UserSocketSingleton userSocket = UserSocketSingleton.getInstance();
+
+    public UserScreen() throws IOException {
+    }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+              out = new PrintWriter(userSocket.GetSocket().getOutputStream(),true);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         ClosingWindow(stage);
         HelperFunctions helper = new HelperFunctions(channelList);
         channelList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
 
-                currentChannel = channelList.getSelectionModel().getSelectedItem();
 
+                String tag =  "s";
+                currentChannel = channelList.getSelectionModel().getSelectedItem();
                 selectionCheck.setText(currentChannel);
+
+
+                System.out.println(tag + "/" + currentChannel);
+                out.println(tag + "/" + currentChannel);
+                out.flush();
+
 
             }
         });
@@ -96,19 +117,9 @@ public class UserScreen implements Initializable {
 
             @Override
             public void handle(WindowEvent windowEvent) {
-                try {
+                out.println("c" + deskTopName);
+                out.flush();
 
-                    String deskTopName = InetAddress.getLocalHost().getHostName();
-                    UserSocketSingleton userSocket = UserSocketSingleton.getInstance();
-                    PrintWriter out  = new PrintWriter(userSocket.GetSocket().getOutputStream(),true);
-                    out.println("c" + deskTopName);
-
-
-
-
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
 
             }
         });
@@ -126,14 +137,18 @@ public class UserScreen implements Initializable {
     }
 
     @FXML
-    void OnSendMessageButton(ActionEvent event) throws IOException {
-        UserSocketSingleton userSocket = UserSocketSingleton.getInstance();
+    void OnSendMessageButton(ActionEvent event) throws IOException, InterruptedException {
+
+        String tag =  "m";
+
          // Reading from user
         String message = inputTextField.getText();
-        //String serverContent = userSocket.SendAndReciveContentToServer(message);
         Label userMsg = new Label(message);
 
-        userMsg.setStyle("-fx-background-color:white; -fx-pref-width:30;");
+        System.out.println(tag + "/" + currentChannel + "/" + deskTopName + "/" + message + " :HardCoded");
+        out.println( tag + "/" + currentChannel + "/" + deskTopName + "/" + message);
+        out.flush();
+
 
         userMsg.setMaxWidth(Double.MAX_VALUE);
         userMsg.setAlignment(Pos.CENTER_RIGHT);

@@ -53,6 +53,10 @@ public class HelperFunctions extends Thread{
                         else if(finalLine.charAt(0) == 'r'){
                             list.getItems().remove(Integer.parseInt(finalLine.substring(1)));
                         }
+
+                        else if(finalLine.charAt(0) == 'm'){
+                            System.out.println(finalLine);
+                        }
                     });
 
                 }

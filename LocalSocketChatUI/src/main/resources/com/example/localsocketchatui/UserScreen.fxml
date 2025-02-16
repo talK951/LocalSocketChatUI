@@ -23,6 +23,7 @@
                      </font>
                   </Label>
                   <ListView fx:id="channelList" />
+                  <Label fx:id="selectionCheck" text="Label" />
                </children>
                <HBox.margin>
                   <Insets />
