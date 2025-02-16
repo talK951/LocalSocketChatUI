@@ -1,6 +1,8 @@
 package com.example.localsocketchatui;
 
 import com.example.localsocketchatui.Helper.HelperFunctions;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -58,6 +60,11 @@ public class UserScreen implements Initializable {
     private Button sendButton;
 
     @FXML
+    private Label selectionCheck;
+
+    String currentChannel;
+
+    @FXML
     public ListView<String> channelList;
 
     Stage stage = GetStage();
@@ -68,6 +75,16 @@ public class UserScreen implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ClosingWindow(stage);
         HelperFunctions helper = new HelperFunctions(channelList);
+        channelList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+
+                currentChannel = channelList.getSelectionModel().getSelectedItem();
+
+                selectionCheck.setText(currentChannel);
+
+            }
+        });
         helper.start();
     }
 

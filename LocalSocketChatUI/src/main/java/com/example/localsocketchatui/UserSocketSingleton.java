@@ -46,7 +46,7 @@ public class UserSocketSingleton {
             String fromServer;
             PrintWriter out = new PrintWriter(serverSocket.getOutputStream(),true);
 
-            String message = "Im Connected Tal gay !";
+            String message = "Im Connected Nikita gay !";
             out.println(deskTopName);
 
 
